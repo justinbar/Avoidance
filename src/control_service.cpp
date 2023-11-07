@@ -35,7 +35,7 @@ public:
         double angle_increment = (msg->angle_max - msg->angle_min) / (num_samples - 1);
         double front_angle = 0.0; // angle at the front of the robot (0 degrees)
         double left_angle = M_PI/2; // angle at the front of the robot (90 degrees)
-        double right_angle = -M_PI/2; // angle at the front of the robot (270 degrees or -90 deg)
+        double right_angle = -M_PI/2; // angle at the front of the robot (270 degrees )
 
         int front_index = static_cast<int>((front_angle - msg->angle_min) / angle_increment);
         int left_index = static_cast<int>((left_angle - msg->angle_min) / angle_increment);
@@ -61,11 +61,11 @@ public:
     {
         timestop();
         twist_.linear.x = 0.0;
-        twist_.angular.z = -0.1; // move left 
+        twist_.angular.z = 0.1; // move left 
         for (int i = 1; (i < 3.0) && rclcpp::ok(); ++i) {
         publisher_->publish(twist_);
         loop_rate_.sleep(); 
-        // allow the robot to turn
+        // allow the robot to turn 2 second
         }
         twist_.angular.z = 0.0;
         publisher_->publish(twist_);
@@ -79,18 +79,18 @@ public:
     {
         timestop();
         twist_.linear.x = 0.0;
-        twist_.angular.z = 0.1; // move right
+        twist_.angular.z = -0.1; // move right
         //count = 0; // Reset count
         for (int i = 1; (i < 3.0) && rclcpp::ok(); ++i) {
         publisher_->publish(twist_);
         loop_rate_.sleep(); 
-        // allow the robot to turn for 
+        // allow the robot to turn for 2 second
         }
         publisher_->publish(twist_);
 
        timestop(); 
 
-        //RCLCPP_INFO(this->get_logger(), "the robot will turn right\n");
+        
     }
     void forward()
     {
@@ -103,10 +103,10 @@ public:
         for (int i = 1; (i < 2.0) && rclcpp::ok(); ++i) {
         publisher_->publish(twist_);
         loop_rate_.sleep(); 
-        // allow the robot to turn for 
+        //  
         }
         publisher_->publish(twist_);
-        //clcpp::sleep_for(std::chrono::seconds(1)); //delay
+        // second 2 //delay
 
         
         
@@ -118,7 +118,7 @@ public:
         for (int i = 1; (i < 4.0) && rclcpp::ok(); ++i) {
         publisher_->publish(twist_);
         loop_rate_.sleep(); 
-        // allow the robot to turn for 
+        // allow the robot to stop up to 3 second
         }
         
 
@@ -189,20 +189,20 @@ int main(int argc, char **argv)
 
         switch (action) {
                 
-                case 0: // Fixed syntax issue here (removed semicolon)
+                case 0: // 
                     node->left();
                     break;
                     
-                case 1: // Fixed syntax issue here (removed semicolon)
-                    //node->stop();
+                case 1: 
+                    
                     node->right();
                     break;
-                case 2: // Fixed syntax issue here (removed semicolon)
-                    //node->stop();
+                case 2: // 
+                    //
                     node->stop();
                     break;
-                case 3: // Fixed syntax issue here (removed semicolon)
-                    //node->stop();
+                case 3: // 
+                    //
                     node->forward();
                     break;
                 default:
