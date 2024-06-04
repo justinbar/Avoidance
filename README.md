@@ -1,0 +1,1 @@
+Theses C++ codes defines a ROS 2 node that commands a robot to perform a sequence of movements. It will publish ROS topics that allow the microcontroller board to respond with those ROS topics that will allow the robot to start moving.
